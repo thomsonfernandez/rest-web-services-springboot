@@ -1,6 +1,7 @@
 package com.springboot.webservices.restfulwebservices.beans;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -9,7 +10,8 @@ public class User {
 	private String phoneNumber;
 	private String emailId;
 	private Date birthDate;
-
+	private List<Post> posts;
+	
 	public User(int userId, String name, String phoneNumber, String emailId, Date birthDate) {
 		this.userId = userId;
 		this.name = name;
@@ -18,8 +20,16 @@ public class User {
 		this.birthDate = birthDate;
 	}
 
+	public User(int userId, String name, String phoneNumber, String emailId, Date birthDate, List<Post> posts) {
+		this.userId = userId;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.emailId = emailId;
+		this.birthDate = birthDate;
+		this.posts = posts;
+	}
 	public User() {
-		
+
 	}
 
 	public int getUserId() {
@@ -60,6 +70,14 @@ public class User {
 
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Override

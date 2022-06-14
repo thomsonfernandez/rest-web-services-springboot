@@ -27,4 +27,18 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 				new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity(eExceptionResponse, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(NoUsersException.class)
+	public final ResponseEntity<Object> handleNoUsersException(Exception ex, WebRequest request) {
+		ExceptionResponse eExceptionResponse = 
+				new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity(eExceptionResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(NoUserToInsertOrCreatedException.class)
+	public final ResponseEntity<Object> handleNoUserToInsertOrCreatedException(Exception ex, WebRequest request) {
+		ExceptionResponse eExceptionResponse = 
+				new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity(eExceptionResponse, HttpStatus.NOT_ACCEPTABLE);
+	}
 }

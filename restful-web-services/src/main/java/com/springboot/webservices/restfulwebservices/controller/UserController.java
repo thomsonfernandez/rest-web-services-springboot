@@ -14,6 +14,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.springboot.webservices.restfulwebservices.beans.User;
 import com.springboot.webservices.restfulwebservices.dao.UserDaoService;
+import com.springboot.webservices.restfulwebservices.exceptions.NoUserToInsertOrCreatedException;
+import com.springboot.webservices.restfulwebservices.exceptions.NoUsersException;
 import com.springboot.webservices.restfulwebservices.exceptions.UserNotFoundException;
 
 @RestController
@@ -24,7 +26,10 @@ public class UserController {
 
 	@GetMapping(path = "/users")
 	public List<User> getUsers() {
-		return service.retrieveAll();
+		List<User> users = service.retrieveAll();
+		if(users == null || users.size() == 0)
+			throw new NoUsersException("No user found!!");
+		return users;
 	}
 
 	@GetMapping(path = "/users/{id}")
@@ -38,8 +43,14 @@ public class UserController {
 	@PostMapping(path = "/users")
 	public ResponseEntity<User> addUser(@RequestBody User user) {
 		
+		if(user == null)
+			throw new NoUserToInsertOrCreatedException("No user to insert!!");
+		
 		User createdUser = service.createUser(user);
 
+		if(createdUser == null)
+			throw new NoUserToInsertOrCreatedException("No user to insert!!");
+		
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")

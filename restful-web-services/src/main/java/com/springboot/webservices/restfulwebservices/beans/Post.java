@@ -11,6 +11,12 @@ public class Post {
 		this.messageDescription = messageDescription;
 	}
 
+	public Post(String postId,String messageCode, String messageDescription) {
+		this.postId = postId;
+		this.messageCode = messageCode;
+		this.messageDescription = messageDescription;
+	}
+	
 	public Post() {
 	}
 	
