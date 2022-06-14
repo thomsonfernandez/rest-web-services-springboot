@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.springboot.webservices.restfulwebservices.beans.User;
 import com.springboot.webservices.restfulwebservices.dao.UserDaoService;
+import com.springboot.webservices.restfulwebservices.exceptions.UserNotFoundException;
 
 @RestController
 public class UserController {
@@ -28,7 +29,10 @@ public class UserController {
 
 	@GetMapping(path = "/users/{id}")
 	public User getUserbyId(@PathVariable int id) {
-		return service.findOne(id);
+		 User user = service.findOne(id);
+		 if(user == null)
+			 throw new UserNotFoundException("Id : "+id);
+		 return user;
 	}
 
 	@PostMapping(path = "/users")
